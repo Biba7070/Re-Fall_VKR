@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class ArkanoidUI : MonoBehaviour
 {
-    public GameObject titleScreen, chooseCharacterScreen, GirlPilot, BoyPilot;
+    public GameObject titleScreen, chooseCharacterScreen, topScreen,  GirlPilot, BoyPilot;
 
     [SerializeField] private BallBalling ballBalling;
     [SerializeField] private ArkanoidControl arkanoidControl;
@@ -27,6 +27,7 @@ public class ArkanoidUI : MonoBehaviour
         titleScreen.SetActive(true);
         GirlPilot.SetActive(false);
         chooseCharacterScreen.SetActive(false);
+        topScreen.SetActive(false);
         BoyPilot.SetActive(false);
         MainCam.SetActive(true);
         girlMenuCam.SetActive(false);
@@ -78,6 +79,7 @@ public class ArkanoidUI : MonoBehaviour
     {
         ballBalling.enabled = true;
         arkanoidControl.enabled = true;
+        topScreen.SetActive(true);
     }
 
     public void QuitToHub()

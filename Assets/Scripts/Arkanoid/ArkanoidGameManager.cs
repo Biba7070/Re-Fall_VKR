@@ -5,8 +5,8 @@ using UnityEngine.UI;
 using TMPro;
 public class ArkanoidGameManager : MonoBehaviour
 {
-    public int lives, score, bricksNumber;
-    public TextMeshProUGUI livesText, scoreText;
+    public int lives, score, bricksNumber, finalScore;
+    public TextMeshProUGUI livesText, scoreText, finalScoreText;
     public bool gameOver;
     public GameObject gameOverScreen;
 
@@ -23,7 +23,8 @@ public class ArkanoidGameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
- 
+        finalScore = score;
+        finalScoreText.text = "" + finalScore;
     }
 
     public void UpdateLives(int changeLives)
