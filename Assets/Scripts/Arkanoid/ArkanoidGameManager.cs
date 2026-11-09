@@ -5,13 +5,10 @@ using UnityEngine.UI;
 using TMPro;
 public class ArkanoidGameManager : MonoBehaviour
 {
-    public int lives;
-    public int score;
-    public TextMeshProUGUI livesText;
-    public TextMeshProUGUI scoreText;
+    public int lives, score, bricksNumber;
+    public TextMeshProUGUI livesText, scoreText;
     public bool gameOver;
-    public int bricksNumber;
-  //  public GameObject clearLevelTimeline;
+    public GameObject gameOverScreen;
 
     public bool isLevelComplete; // ƒл€ активации анимации победы модели персонажа
 
@@ -20,13 +17,13 @@ public class ArkanoidGameManager : MonoBehaviour
         livesText.text = "" + lives;
         scoreText.text = "" + score;
         bricksNumber = GameObject.FindGameObjectsWithTag("ArkanoidBrick").Length;
-       // clearLevelTimeline.SetActive(false);
+        gameOverScreen.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+ 
     }
 
     public void UpdateLives(int changeLives)
@@ -35,7 +32,7 @@ public class ArkanoidGameManager : MonoBehaviour
         if (lives < 0)
         {
             lives = 0;
-            gameOver = true;
+            GameOver();
         }
         livesText.text = "" + lives;
     }
@@ -52,14 +49,14 @@ public class ArkanoidGameManager : MonoBehaviour
         bricksNumber--;
         if (bricksNumber == 0)
         {
-       //     clearLevelTimeline.SetActive(true);
+            GameOver();
             isLevelComplete = true;
         }
     }
 
     public void GameOver()
     {
-        //Timeline GameOver
+        gameOverScreen.SetActive(true);
         gameOver = true;
     }
 }

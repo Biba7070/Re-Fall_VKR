@@ -1,17 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using Cinemachine;
+using UnityEngine.SceneManagement;
+
 public class ArkanoidUI : MonoBehaviour
 {
-    public GameObject titleScreen, chooseCharacterScreen, chooseLevelScreen, GirlPilot, BoyPilot;
+    public GameObject titleScreen, chooseCharacterScreen, GirlPilot, BoyPilot;
 
     [SerializeField] private BallBalling ballBalling;
     [SerializeField] private ArkanoidControl arkanoidControl;
 
-    [Header("-------------------------")]
-
-    [Header("Cameras")]
     [Header("-------------------------")]
     public GameObject MainCam, girlMenuCam, boyMenuCam;
 
@@ -28,7 +26,6 @@ public class ArkanoidUI : MonoBehaviour
     {
         titleScreen.SetActive(true);
         GirlPilot.SetActive(false);
-        chooseLevelScreen.SetActive(false);
         chooseCharacterScreen.SetActive(false);
         BoyPilot.SetActive(false);
         MainCam.SetActive(true);
@@ -36,18 +33,10 @@ public class ArkanoidUI : MonoBehaviour
         boyMenuCam.SetActive(false);
     }
 
-    public void OpenChooseLevelScreen()
-    {
-        titleScreen.SetActive(false);
-        chooseCharacterScreen.SetActive(false);
-        chooseLevelScreen.SetActive(true);
-    }
-
     public void OpenChooseCharacterScreen()
     {
         titleScreen.SetActive(false);
         chooseCharacterScreen.SetActive(true);
-        chooseLevelScreen.SetActive(false);
         girlMenuCam.SetActive(true);
     }
 
@@ -93,6 +82,6 @@ public class ArkanoidUI : MonoBehaviour
 
     public void QuitToHub()
     {
-
+        SceneManager.LoadScene("Hub");
     }
 }
