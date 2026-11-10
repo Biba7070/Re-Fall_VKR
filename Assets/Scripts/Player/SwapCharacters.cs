@@ -8,15 +8,12 @@ public class SwapCharacters : MonoBehaviour
     public Transform character;
     public int whichCharacter;
     public List<Transform> listOfTheCharacters;
-    [Header("Later change")]
-    /*--------------Позже изменить------------*/
-    public CinemachineFreeLook CameraPers1;
-    public CinemachineFreeLook CameraPers2;
-   // public CinemachineVirtualCamera CameraPers3;
-    [SerializeField] private WalkForPlayer scriptmovingChar1;
-    [SerializeField] private WalkForPlayer scriptmovingChar2;
-    //[SerializeField] private WalkForPlayer scriptmovingChar3;
-    /*--------------Позже изменить------------*/
+    public CinemachineFreeLook ResCamera;
+    public CinemachineFreeLook CurioCamera;
+    public CinemachineFreeLook SkepCamera;
+    [SerializeField] private WalkForPlayer ResScript;
+    [SerializeField] private WalkForPlayer CurioScript;
+    [SerializeField] private WalkForPlayer SkepScript;
 
 
     void Start()
@@ -28,11 +25,11 @@ public class SwapCharacters : MonoBehaviour
         Swap();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-      /*  if (ActivateAiming.aimingActive == false)
-        {
+       /* if (ActivateAiming.aimingActive == false)
+        {*/
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 if (whichCharacter == 0)
@@ -56,29 +53,29 @@ public class SwapCharacters : MonoBehaviour
                     whichCharacter += 1;
                 }
                 Swap();
-            }
-        }*/
-    
-        /*-------------Позже изменить--------------*/
-        if(scriptmovingChar1.enabled == true && scriptmovingChar2.enabled == false)
-        {
-            CameraPers1.Priority = 1;
-            CameraPers2.Priority = 0;
-           // CameraPers3.Priority = 0;
+          /*  }*/
         }
-        else if (scriptmovingChar1.enabled == false && scriptmovingChar2.enabled == true)
+
+        /*-------------Смена активной камеры--------------*/
+        if (ResScript.enabled == true && CurioScript.enabled == false && SkepScript.enabled == false)
         {
-            CameraPers1.Priority = 0;
-            CameraPers2.Priority = 1;
-            //CameraPers3.Priority = 0;
+            ResCamera.Priority = 1;
+            CurioCamera.Priority = 0;
+            SkepCamera.Priority = 0;
         }
-       /* else if(scriptmovingChar1.enabled == false && scriptmovingChar2.enabled == false && scriptmovingChar3.enabled == true)
+        else if (ResScript.enabled == false && CurioScript.enabled == true && SkepScript.enabled == false)
         {
-            CameraPers1.Priority = 0;
-            CameraPers2.Priority = 0;
-            CameraPers3.Priority = 1;
+            ResCamera.Priority = 0;
+            CurioCamera.Priority = 1;
+            SkepCamera.Priority = 0;
         }
-        /*----------------Позже изменить-----------*/
+        else if (ResScript.enabled == false && CurioScript.enabled == false && SkepScript.enabled == true)
+        {
+            ResCamera.Priority = 0;
+            CurioCamera.Priority = 0;
+            SkepCamera.Priority = 1;
+        }
+
     }
     public void Swap()
     {
