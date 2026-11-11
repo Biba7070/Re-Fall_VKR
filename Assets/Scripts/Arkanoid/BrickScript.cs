@@ -5,8 +5,7 @@ using UnityEngine;
 public class BrickScript : MonoBehaviour
 {
 
-    public int points;               //Выдаваемое кол-во чоков при контакте с объектом
-    public int hitsToBreak;          //Количество ударов для ломания объекта
+    public int points, hitsToBreak;               //Выдаваемое кол-во чоков при контакте с объектом и Количество ударов для ломания объекта
     public bool isBrickBroken;       
 
    /* private void Awake()

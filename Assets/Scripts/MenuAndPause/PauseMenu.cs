@@ -11,7 +11,6 @@ public class PauseMenu : MonoBehaviour
 
     [SerializeField] private Image UIscreenshot;
 
-    // Start is called before the first frame update
     void Start()
     {
         pauseMenu.SetActive(false);
@@ -20,7 +19,6 @@ public class PauseMenu : MonoBehaviour
         quitGameMenu.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !pauseMenu.activeInHierarchy)
@@ -32,7 +30,6 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-
     public void BackToGame()
     {
         pauseMenu.SetActive(false);
@@ -43,14 +40,16 @@ public class PauseMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
+    public void CloseAllShowPauseMenu()
+    {
+        quitGameMenu.SetActive(false);
+        quitToMainMenu.SetActive(false);
+        optionsMenu.SetActive(false);
+    }
+
     public void OpenOptionsMenu()
     {
         optionsMenu.SetActive(true);
-    }
-
-    public void CloseOptionsMenu()
-    {
-        optionsMenu.SetActive(false);
     }
 
     public void OpenQuitToMainMenu()
@@ -58,27 +57,17 @@ public class PauseMenu : MonoBehaviour
         quitToMainMenu.SetActive(true);
     }
 
-    public void CloseQuitToMaiMenu()
-    {
-        quitToMainMenu.SetActive(false);
-    }
-
     public void OpenQuitMenu()
     {
         quitGameMenu.SetActive(true);
     }
 
-    public void CloseQuitMenu()
-    {
-        quitGameMenu.SetActive(false);
-    }
-
-    public void QuitToMainMenu() //Функция, с помощью которой игра закрывается
+    public void QuitToMainMenu()
     {
         SceneManager.LoadScene(0);
     }
 
-    public void CloseGame() //Функция, с помощью которой игра закрывается
+    public void CloseGame() 
     {
         Application.Quit();
     }

@@ -13,8 +13,6 @@ public class EnemyAI : MonoBehaviour
     //For Walk
 
     public Vector3 walkPoint;
-    public bool walkPointSet;
-    public float walkPointRange;
 
     //For attacks
     public float timeBetweenAttacks;

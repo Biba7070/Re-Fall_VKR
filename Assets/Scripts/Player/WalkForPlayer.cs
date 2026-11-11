@@ -5,19 +5,12 @@ using UnityEngine;
 public class WalkForPlayer : MonoBehaviour
 {
 
-    private float movementSpeed;
-    public float walkSpeed;
-    public float runningSpeed;
-    public float swingSpeed;
+    private float movementSpeed, walkSpeed, runningSpeed;
     public Animator animator;
-    //_______For characters individual functions(Для дальнейших индивидуальных функций персонажей)_______\\ 
+    //_______For characters individual functions(Для индивидуальных функций персонажей)_______\\ 
     [Header("Which character")]
-    public bool isRes;
-    public bool isCurio;
-    public bool isSkep;
-    public static bool isResActive;
-    public static bool isCurioActive;
-    public static bool isSkepActive;
+    public bool isRes, isCurio, isSkep;
+    public static bool isResActive, isCurioActive, isSkepActive;
     //___________________________________________________________________________________________________\\ 
 
 

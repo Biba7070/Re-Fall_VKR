@@ -15,9 +15,10 @@ public class ResOpeningDoors : MonoBehaviour
 
     void Update()
     {
-        if (isInTrigger == true && Input.GetKeyDown(KeyCode.T) && SwapCharacters.isResActive == true)
+        if (isInTrigger == true && Input.GetKeyDown(KeyCode.T) && WalkForPlayer.isResActive == true)
         {
             door.SetActive(false);
+            ButtonToPress.SetActive(false);
         }
     }
 

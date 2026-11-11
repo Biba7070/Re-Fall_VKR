@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class ArkanoidControl : MonoBehaviour
 {
-     public float panelSpeed;
-     public float mouseSensitivity;
-     public float leftX;
-     public float rightX;
+    public float panelSpeed, mouseSensitivity, leftX, rightX;
     public Animator paddleAnim;
     public ArkanoidGameManager agm;
     // public Rigidbody rbArk;
@@ -49,34 +46,5 @@ public class ArkanoidControl : MonoBehaviour
             transform.position = new Vector3(rightX, transform.position.y, transform.position.z);
         }
 
-
-        PlayPaddleAnim();
-    }
-
-    void PlayPaddleAnim()
-    {
-        if (BallBalling.BallTouch == true)
-        {
-            paddleAnim.SetBool("BallHit", true);
-            BallBalling.BallTouch = false;
-        }
-        else if (BallBalling.BallTouch == false)
-        {
-            paddleAnim.SetBool("BallHit", false);
-        }
-    }
-
-    void OnTriggerEnter(Collider collider)
-    {
-        if (collider.CompareTag("ArkanoidAddLife"))
-        {
-            if (collider.gameObject.activeSelf)
-            {
-                collider.gameObject.SetActive(false);
-                agm.UpdateLives(1);
-                Debug.Log("Yep");
-                Destroy(collider.gameObject);
-            }
-        }
     }
 }

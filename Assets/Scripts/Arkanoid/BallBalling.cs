@@ -10,14 +10,11 @@ public class BallBalling : MonoBehaviour
     public Transform paddle;
     public static bool BallTouch = false;
     public ArkanoidGameManager agm;
-    Transform randomPowerUp;
-    public Transform[] powerUps;
     void Start()
     {
         rbBall = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         Debug.Log(rbBall.velocity);
@@ -38,14 +35,12 @@ public class BallBalling : MonoBehaviour
             rbBall.AddForce(Vector3.forward * ballSpeed, ForceMode.Impulse);
         }
         //-------------------------------------//
-        randomPowerUp = powerUps[Random.Range(0, powerUps.Length)];
     }
 
     void OnTriggerEnter(Collider collider)
     {
         if (collider.CompareTag("ArkanoidBottom"))
         {
-            Debug.Log("07");
             rbBall.velocity = Vector3.zero;
             isBalling = false;
             agm.UpdateLives(-1);
@@ -69,24 +64,13 @@ public class BallBalling : MonoBehaviour
             }
             else
             {
-                int randomChance = Random.Range(1, 101);
-                if (randomChance < 10)
-                {
-                    Instantiate(randomPowerUp, collision.transform.position, collision.transform.rotation);
-                }
-               /* if (rbBall.velocity.magnitude < ballSpeed * 0.9f)
-                {
-                    rbBall.velocity = rbBall.velocity.normalized * ballSpeed;
-                }*/
-               if (ballSpeed < 200)
-                {
-                    rbBall.velocity = rbBall.velocity.normalized * 100;
-                }
                 agm.UpdateScore(brickScript.points);
                 agm.UpdateBricksNumber();
                 brickScript.isBrickBroken = true;
-               // collision.gameObject.SetActive(false);
-                //Destroy(collision.gameObject);
+                if (ballSpeed < 200)
+                {
+                    rbBall.velocity = rbBall.velocity.normalized * 100;
+                }
             }
         }
     }

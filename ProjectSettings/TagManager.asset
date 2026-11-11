@@ -19,7 +19,7 @@ TagManager:
   - isItGround
   - PostProcessing
   - itIsPlayer
-  - 
+  - isItGrappleable
   - 
   - 
   - 
