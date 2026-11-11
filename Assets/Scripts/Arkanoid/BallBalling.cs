@@ -74,6 +74,4 @@ public class BallBalling : MonoBehaviour
             }
         }
     }
-
-
 }

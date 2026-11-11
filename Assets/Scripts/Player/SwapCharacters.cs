@@ -24,8 +24,8 @@ public class SwapCharacters : MonoBehaviour
 
     void Update()
     {
-        if (ActivateAiming.aimingActive == false)
-        {
+      /*  if (ActivateAiming.aimingActive == false)
+        {*/
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 if (whichCharacter == 0)
@@ -49,7 +49,7 @@ public class SwapCharacters : MonoBehaviour
                     whichCharacter += 1;
                 }
                 Swap();
-            }
+           // }
          }
 
         /*-------------Смена активной камеры--------------*/
