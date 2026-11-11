@@ -67,6 +67,7 @@ public class WalkForPlayer : MonoBehaviour
     public float groundPoundCooldown = 0.3f;      // Cooldown between ground pounds
     public bool isGroundPounding = false;
     public bool canGroundPound = true;
+    public Collider CurioGroundPoundBottom;
 
 
     Rigidbody rb;
@@ -97,6 +98,7 @@ public class WalkForPlayer : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         rb.freezeRotation = true;
+        CurioGroundPoundBottom.enabled = false;
     }
 
     private void Update()
@@ -358,6 +360,7 @@ public class WalkForPlayer : MonoBehaviour
         canGroundPound = false;
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(Vector3.down * groundPoundForce, ForceMode.Impulse);
+        CurioGroundPoundBottom.enabled = true;
     }
 
     public void EndGroundPound()
@@ -366,6 +369,7 @@ public class WalkForPlayer : MonoBehaviour
         {
             isGroundPounding = false;
             Invoke(nameof(ResetGroundPound), groundPoundCooldown);
+            CurioGroundPoundBottom.enabled = false;
         }
     }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -72,6 +73,15 @@ public class PauseMenu : MonoBehaviour
         quitGameMenu.SetActive(false);
     }
 
+    public void QuitToMainMenu() //Функция, с помощью которой игра закрывается
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void CloseGame() //Функция, с помощью которой игра закрывается
+    {
+        Application.Quit();
+    }
 
     private IEnumerator TakeScreenshot()
     {
