@@ -8,7 +8,7 @@ public class WalkForPlayer : MonoBehaviour
     private float movementSpeed;
     public float walkSpeed, runningSpeed;
     public Animator animator;
-    //_______For characters individual functions(Для индивидуальных функций персонажей)_______\\ 
+    //_______Для уникальных функций персонажей_______\\ 
     [Header("Which character")]
     public bool isRes, isCurio, isSkep;
     public static bool isResActive, isCurioActive, isSkepActive;
@@ -57,11 +57,11 @@ public class WalkForPlayer : MonoBehaviour
 
     [Header("_______For Curio_______")]
     [Header("Ground Pound")]
-    public float groundPoundForce = 30f;        // Downward force when ground pounding
-    public float groundPoundCooldown = 0.3f;      // Cooldown between ground pounds
+    public float groundPoundForce = 30f;
+    public float groundPoundCooldown = 0.3f;
     public bool isGroundPounding = false;
     public bool canGroundPound = true;
-    //public Collider CurioGroundPoundBottom;
+    public static bool GroundPoundActivated = false;
 
 
     Rigidbody rb;
@@ -83,7 +83,6 @@ public class WalkForPlayer : MonoBehaviour
         wallRunning
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         jumpForce = StandartJumpForce;
@@ -92,7 +91,6 @@ public class WalkForPlayer : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         rb.freezeRotation = true;
-     //   CurioGroundPoundBottom.enabled = false;
     }
 
     private void Update()
@@ -103,7 +101,7 @@ public class WalkForPlayer : MonoBehaviour
             isOnPad = false;
             jumpForce = StandartJumpForce;
         }
-        /*----------------Crouch(Приседание)---------------*/
+        /*__________________Приседание__________________*/
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             characterCapsuleCollider.height = crouchColliderHeight;
@@ -126,7 +124,7 @@ public class WalkForPlayer : MonoBehaviour
             characterCapsuleCollider.center = center;
 
         }
-        /*-----------------------------------------------*/
+        /*___________________________________________*/
 
         if (isGroundPounding && grounded)
         {
@@ -158,14 +156,14 @@ public class WalkForPlayer : MonoBehaviour
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, isItGround);
 
 
-        //______voids(Функции)______\\
+        //______Функции______\\
         MovePlayer();
         SpeedControl();
         StateHandler();
         //_________________\\
 
 
-        //___________Character smooth rotation(Плавный поворот персонажей)___________\\
+        //___________Плавный поворот модели персонажей___________\\
         if (moveDirection != Vector3.zero)
         {
             float targenAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg;
@@ -175,7 +173,7 @@ public class WalkForPlayer : MonoBehaviour
         //_______________________________________________\\
 
 
-        //___________Running(Бег и проверка, стоит ли перс на месте)_____________\\
+        //___________Бег и проверка, стоит ли перс на месте_____________\\
         else if (moveDirection == Vector3.zero && Input.GetKey(KeyCode.LeftShift))
         {
             VelocityHash = Animator.StringToHash("MovementTree");
@@ -235,9 +233,16 @@ public class WalkForPlayer : MonoBehaviour
     private void ResetJump()
     {
         exitingSlope = false;
-        isReadyToJump = true;
         animator.SetBool("isJumping", false);
+        isReadyToJump = true;
     }
+
+    //_____________Для перемещения, попав крюком по цели__________________//
+    public void JumpToPosition(Vector3 targetPosition, float trajectoryHeight)
+    {
+        rb.velocity = CalculateJumpVelocity(transform.position, targetPosition, trajectoryHeight);
+    }
+    //_______________________________//
 
     private void SpeedControl()
     {
@@ -259,7 +264,7 @@ public class WalkForPlayer : MonoBehaviour
         }
     }
 
-    //___________В каком состоянии находится персонаж)__________//
+    //___________В каком состоянии находится персонаж__________//
 
     private void StateHandler()
     {
@@ -335,26 +340,14 @@ public class WalkForPlayer : MonoBehaviour
         return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized;
     }
 
-    public Vector3 CalculateJumpVelocity(Vector3 startPoint, Vector3 endPoint, float trajectoryHeight)
-    {
-        float gravity = Physics.gravity.y;
-        float displacementY = endPoint.y - startPoint.y;
-        Vector3 displacementXZ = new Vector3(endPoint.x - startPoint.x, 0f, endPoint.z - startPoint.z);
-
-        Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * trajectoryHeight);
-        Vector3 velocityXZ = displacementXZ / (Mathf.Sqrt(-2 * trajectoryHeight / gravity) + Mathf.Sqrt(2 * (displacementY - trajectoryHeight) / gravity));
-        return velocityXZ + velocityY;
-    }
-
-
-    //________________________For groundpound_____________________//
+    //________________________Удар о землю_____________________//
     public void StartGroundPound()
     {
         isGroundPounding = true;
         canGroundPound = false;
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(Vector3.down * groundPoundForce, ForceMode.Impulse);
-       // CurioGroundPoundBottom.enabled = true;
+        GroundPoundActivated = true;
     }
 
     public void EndGroundPound()
@@ -363,7 +356,7 @@ public class WalkForPlayer : MonoBehaviour
         {
             isGroundPounding = false;
             Invoke(nameof(ResetGroundPound), groundPoundCooldown);
-         //   CurioGroundPoundBottom.enabled = false;
+            GroundPoundActivated = false;
         }
     }
 
@@ -372,6 +365,10 @@ public class WalkForPlayer : MonoBehaviour
         canGroundPound = true;
     }
 
+    //__________________//
+
+
+    //________________________При прикосновении с панелью прыжка__________________________//
     void OnTriggerEnter(Collider collider)
     {
         if (collider.CompareTag("JumpPad"))
@@ -390,6 +387,18 @@ public class WalkForPlayer : MonoBehaviour
         rb.drag = 0f;
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+    }
+    //______________________________________________________________________//
+
+
+    public Vector3 CalculateJumpVelocity(Vector3 startPoint, Vector3 endPoint, float trajectoryHeight)
+    {
+        float gravity = Physics.gravity.y;
+        float displacementY = endPoint.y - startPoint.y;
+        Vector3 displacementXZ = new Vector3(endPoint.x - startPoint.x, 0f, endPoint.z - startPoint.x);
+        Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * trajectoryHeight);
+        Vector3 velocityXZ = displacementXZ / (Mathf.Sqrt(-2 * trajectoryHeight / gravity) + Mathf.Sqrt(2 * (displacementY - trajectoryHeight) / gravity));
+        return velocityXZ + velocityY;
     }
 
 }

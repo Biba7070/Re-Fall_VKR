@@ -5,6 +5,7 @@ using UnityEngine;
 public class OpenDoor : MonoBehaviour
 {
     public GameObject ButtonToPress;
+    public Vector3 ousidePoint;
     bool isInTrigger;
 
     void Start()
@@ -16,7 +17,11 @@ public class OpenDoor : MonoBehaviour
     {
         if (isInTrigger == true && Input.GetKeyDown(KeyCode.T))
         {
-
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                player.transform.position = ousidePoint;
+            }
         }
     }
 

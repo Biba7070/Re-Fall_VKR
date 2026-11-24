@@ -5726,9 +5726,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1614376138}
-        m_TargetAssemblyTypeName: ArkanoidUI, Assembly-CSharp
-        m_MethodName: QuitToHub
+      - m_Target: {fileID: 1614376139}
+        m_TargetAssemblyTypeName: TeleportToHubInTheCertainPlace, Assembly-CSharp
+        m_MethodName: Teleport
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6821,6 +6821,7 @@ GameObject:
   - component: {fileID: 1614376135}
   - component: {fileID: 1614376134}
   - component: {fileID: 1614376138}
+  - component: {fileID: 1614376139}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -6935,6 +6936,20 @@ MonoBehaviour:
   MainCam: {fileID: 1899598523}
   girlMenuCam: {fileID: 1228301516}
   boyMenuCam: {fileID: 1154892566}
+--- !u!114 &1614376139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614376133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d4fe3a3fae77ca4189b634430485b1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hubPlace: {x: 9.4, y: 8.97, z: -183.63}
+  sceneName: Hub
 --- !u!1 &1683778935 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2372847361076386092, guid: fc89514adf078574a8bab3c4140dd6ec, type: 3}
@@ -7188,9 +7203,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1614376138}
-        m_TargetAssemblyTypeName: ArkanoidUI, Assembly-CSharp
-        m_MethodName: QuitToHub
+      - m_Target: {fileID: 1614376139}
+        m_TargetAssemblyTypeName: TeleportToHubInTheCertainPlace, Assembly-CSharp
+        m_MethodName: Teleport
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

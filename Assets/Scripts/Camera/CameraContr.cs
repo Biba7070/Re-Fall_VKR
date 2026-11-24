@@ -5,9 +5,7 @@ using Cinemachine;
 
 public class CameraContr : MonoBehaviour
 {
-    public float rotationSpeed;
-    public Transform orientation;
-    public Transform player;
+    public Transform orientation, player;
 
     [SerializeField] private CinemachineFreeLook cinemVirCam;
     [SerializeField] private float fiOfViMin = 30f;

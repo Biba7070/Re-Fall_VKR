@@ -4,8 +4,7 @@ using UnityEngine;
 using Cinemachine;
 public class Aiming : MonoBehaviour
 {
-    public GameObject showAimCenter, hook;
-    public CinemachineFreeLook SkepCamera, AimCamera;
+    public GameObject showAimCenter, hook, AimCamera;
     Animator animator;
     public static bool isAimingActive;
     // Start is called before the first frame update
@@ -13,7 +12,7 @@ public class Aiming : MonoBehaviour
     {
         showAimCenter.SetActive(false);
         hook.SetActive(false);
-        AimCamera.Priority = 0;
+        AimCamera.SetActive(false);
         animator = GetComponent<Animator>();
     }
 
@@ -25,7 +24,7 @@ public class Aiming : MonoBehaviour
             if (Input.GetMouseButton(1))
             {
                 showAimCenter.SetActive(true);
-                AimCamera.Priority = 2;
+                AimCamera.SetActive(true);
                 animator.SetBool("isAiming", true);
                 isAimingActive = true;
                 hook.SetActive(true);
@@ -33,7 +32,7 @@ public class Aiming : MonoBehaviour
             else
             {
                 showAimCenter.SetActive(false);
-                AimCamera.Priority = 0;
+                AimCamera.SetActive(false);
                 animator.SetBool("isAiming", false);
                 isAimingActive = false;
                 hook.SetActive(false);

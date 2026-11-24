@@ -10,7 +10,6 @@ public class Grappling : MonoBehaviour
     public LayerMask isItGrappleable;
     public LineRenderer lr;
 
-
     public float maxGrappleDistance, grappleDelayTime;
     private Vector3 grapplePoint;
 
@@ -18,6 +17,7 @@ public class Grappling : MonoBehaviour
 
     public float grapplingCooldown;
     private float grapplingCooldownTimer;
+    public float overshootYAxis;
     // Start is called before the first frame update
     void Start()
     {
@@ -69,7 +69,11 @@ public class Grappling : MonoBehaviour
 
     private void ExecuteGrapple()
     {
-
+        Vector3 lowestPoint = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
+        float grapplePointRelativeYPos = grapplePoint.y - lowestPoint.y;
+        float highestPointOnArc = grapplePointRelativeYPos + overshootYAxis;
+        wfp.JumpToPosition(grapplePoint, highestPointOnArc);
+        Invoke(nameof(StopGrapple), 1f);
     }
 
     private void StopGrapple()
