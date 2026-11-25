@@ -28,6 +28,10 @@ public class PauseMenu : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Time.timeScale = 0;
         }
+        else if (Input.GetKeyDown(KeyCode.Escape) && pauseMenu.activeInHierarchy)
+        {
+            BackToGame();
+        }
     }
 
     public void BackToGame()

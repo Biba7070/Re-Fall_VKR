@@ -1060,7 +1060,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camStartActive: {fileID: 0}
-  camChange: {fileID: 0}
+  camChange: {fileID: 1004236226}
 --- !u!64 &874562540
 MeshCollider:
   m_ObjectHideFlags: 0

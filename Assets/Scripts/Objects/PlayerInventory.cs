@@ -14,6 +14,11 @@ public class PlayerInventory : MonoBehaviour
     public UnityEvent<PlayerInventory> OnCapCollected;
     public UnityEvent<PlayerInventory> OnLiveCollected;
 
+    public void Start()
+    {
+        livesNumber = 3;
+    }
+
     public void capCollected()
     {
         capNumber++;
