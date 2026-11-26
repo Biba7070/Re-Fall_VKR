@@ -6,6 +6,12 @@ using UnityEngine.SceneManagement; //Для смены сцен
 public class MainMenu : MonoBehaviour
 {
     public GameObject OptionsMenuCanvas, QuitMenuCanvas;
+    AudioManager am;
+
+    void Awake()
+    {
+        am = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
 
     public void Start()
     {
@@ -36,5 +42,10 @@ public class MainMenu : MonoBehaviour
     public void ChangeScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+
+    public void PlayButtonSFX()
+    {
+        am.PlaySFX(am.button);
     }
 }

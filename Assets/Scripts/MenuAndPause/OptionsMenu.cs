@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 using TMPro;
+
 public class OptionsMenu : MonoBehaviour
 {
     public GameObject[] Tabs; //Кнопки для переключения раздела настроек
@@ -10,6 +12,10 @@ public class OptionsMenu : MonoBehaviour
     Resolution[] resolutions;
 
     public TMPro.TMP_Dropdown resolutionDropdown;
+
+    [SerializeField] private AudioMixer musicAndSFXMixer;
+    [SerializeField] private Slider musicSlider;
+    [SerializeField] private Slider SFXSlider;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +40,16 @@ public class OptionsMenu : MonoBehaviour
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
+
+        if (PlayerPrefs.HasKey("MusicVolume"))
+        {
+            LoadVolume();
+        }
+        else
+        {
+            SetMusicVolume();
+            SetSFXVolume();
+        }
     }
 
 
@@ -48,7 +64,7 @@ public class OptionsMenu : MonoBehaviour
         Tabs[TabID].SetActive(true); //Раздел становится активным
     }
 
-
+    //______________________________\\
     public void setResolution(int resolutionIndex)
     {
         Resolution resolution = resolutions[resolutionIndex];
@@ -59,4 +75,27 @@ public class OptionsMenu : MonoBehaviour
     {
         Screen.fullScreen = isFullScreen;
     }
+    //_____________________________\\
+
+    public void SetMusicVolume()
+    {
+        float volume = musicSlider.value;
+        musicAndSFXMixer.SetFloat("Music", Mathf.Log10(volume) * 20);
+        PlayerPrefs.SetFloat("MusicVolume", volume);
+    }
+
+    public void SetSFXVolume()
+    {
+        float volume = musicSlider.value;
+        musicAndSFXMixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
+        PlayerPrefs.SetFloat("SFXVolume", volume);
+    }
+
+    private void LoadVolume()
+    {
+        musicSlider.value = PlayerPrefs.GetFloat("MusicVolume");
+        SFXSlider.value = PlayerPrefs.GetFloat("SFXVolume");
+    }
+
+
 }

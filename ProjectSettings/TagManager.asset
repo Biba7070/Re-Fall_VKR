@@ -9,6 +9,7 @@ TagManager:
   - ArkanoidBrick
   - JumpPad
   - Enemy
+  - Audio
   layers:
   - Default
   - TransparentFX
